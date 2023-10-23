@@ -1,0 +1,22 @@
+Source: gosample
+Section: golang
+Priority: optional
+Maintainer: Debian Go Packaging Team <team+pkg-go@tracker.debian.org>
+Uploaders: Anthony Fok <foka@debian.org>
+Rules-Requires-Root: no
+Build-Depends: debhelper-compat (= 13),
+               dh-sequence-golang,
+               golang-any (>= 2:1.16~)
+Testsuite: autopkgtest-pkg-go
+Standards-Version: 4.6.2
+Vcs-Browser: https://salsa.debian.org/go-team/packages/gosample
+Vcs-Git: https://salsa.debian.org/go-team/packages/gosample.git
+Homepage: https://github.com/keliramu/gosample
+XS-Go-Import-Path: github.com/keliramu/gosample
+
+Package: gosample
+Architecture: any
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Static-Built-Using: ${misc:Static-Built-Using}
+Description: pure Go sample for testing

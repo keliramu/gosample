@@ -1,0 +1,16 @@
+#!/usr/bin/make -f
+
+override_dh_auto_test:
+	echo "dh_auto_test: NOOP..."
+
+override_dh_auto_build:
+	pwd
+	ls -la
+	echo "dh_auto_test: NOOP..."
+
+execute_before_dh_auto_build:
+	pwd
+	ls -la
+
+%:
+	dh $@ --builddirectory=_build --buildsystem=golang

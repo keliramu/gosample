@@ -1,0 +1,70 @@
+Description: <short summary of the patch>
+ TODO: Put a short summary on the line above and replace this paragraph
+ with a longer explanation of this change. Complete the meta-information
+ with other relevant fields (see below for details). To make it easier, the
+ information below has been extracted from the changelog. Adjust it or drop
+ it.
+ .
+ gosample (1.0.2-1) unstable; urgency=medium
+ .
+   * New sample222
+Author: keliramu <keliramu@debian.org>
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout https://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: (upstream|backport|vendor|other), (<patch-url>|commit:<commit-id>)
+Bug: <upstream-bugtracker-url>
+Bug-Debian: https://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: (no|not-needed|<patch-forwarded-url>)
+Applied-Upstream: <version>, (<commit-url>|commit:<commid-id>)
+Reviewed-By: <name and email of someone who approved/reviewed the patch>
+Last-Update: 2023-10-23
+
+--- /dev/null
++++ gosample-1.0.2/config/config.go
+@@ -0,0 +1,18 @@
++package config
++
++import "fmt"
++
++type Config interface {
++	Download() error
++}
++
++type ConfigFS struct {
++	Name string
++}
++
++func (c *ConfigFS) Download() error {
++	if c.Name != "" {
++		return fmt.Errorf("error")
++	}
++	return nil
++}
+--- gosample-1.0.2.orig/main.go
++++ gosample-1.0.2/main.go
+@@ -1,7 +1,19 @@
+ package main
+ 
+-import "fmt"
++import (
++	"fmt"
++	"gosample/config"
++)
++
++func someFn(cfg config.Config) {
++	err := cfg.Download()
++	if err != nil {
++		fmt.Println("Error!!!")
++	}
++}
+ 
+ func main() {
+ 	fmt.Println("HiHiHi....")
++	cfg := config.ConfigFS{}
++	someFn(&cfg)
+ }
